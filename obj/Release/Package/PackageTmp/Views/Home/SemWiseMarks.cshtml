@@ -1,0 +1,50 @@
+﻿<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+
+@*@model List<MvcApplication1.Models.Student_Info>*@
+
+@{
+    ViewBag.Title = "Semester Wise Marks";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 45, canPage: false, canSort: true);
+    //grid.Bind(rowCount: ViewBag.TotalRows, autoSortAndPage: true);
+  //  grid.Pager(WebGridPagerModes.All);
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Semester Wise Marks</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+  @using (Html.BeginForm("SemWiseMarks","Home", FormMethod.Get,new{@class="navbar-form navbar-left"})){
+<table id="t01" style="margin: 0px auto;">
+    <tr>
+        <th>Session</th>
+        <td>
+                @Html.DropDownList("Sessn", new SelectList(ViewBag.SSn) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        
+    @*</tr>
+    <tr>*@
+        <th>Department</th>
+        <td>
+                @Html.DropDownList("Dep", new SelectList(ViewBag.DpT) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        
+   @*</tr>
+   <tr>*@
+        <td>&nbsp;</td>
+        <td><input type="submit" value="Search" /></td>
+        
+    </tr>
+</table>
+      @*<iframe id="reportFrame" src="..\Reports\smwmrks.aspx?Sessn=@ViewBag.SSn&Dep=@ViewBag.DpT" style="width:90%; border:none;height:auto"></iframe>*@
+      @*<iframe id="reportFrame" src="..\Reports\smwmrks.aspx?Dep=@ViewBag.DepC&Sessn=@ViewBag.SSnC" style="width:95%; border:none;height:100%;"></iframe>*@
+      @*<iframe id="reportFrame" src="..\Reports\smwmrks.aspx?Dep=2016-2017&Sessn=CEMA" style="width:90%; border:none;height:700px"></iframe>*@
+ }
+</nav>
+<iframe id="reportFrame" src="..\Reports\smwmrks.aspx?Dep=@ViewBag.DepC&Sessn=@ViewBag.SSnC" style="width:95%; border:none;height:700px;"></iframe>

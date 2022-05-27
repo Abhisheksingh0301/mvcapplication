@@ -1,0 +1,63 @@
+﻿@model List<MvcApplication1.Models.Time_Table>
+
+@{
+    ViewBag.Title = "Department wise Time Table";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 35, canPage: false, canSort: true);
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Department wise Time Table</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+  @using (Html.BeginForm("DepSm","TimeTable", FormMethod.Get,new{@class="navbar-form navbar-left"})){
+<table id="t01" style="margin: 0px auto;">
+    <tr>
+        <th>Department</th>
+        <td>
+                @Html.DropDownList("Dep", new SelectList(ViewBag.Dpt) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        <th>Semester</th>
+        <td>
+                @Html.DropDownList("Sem", new SelectList(ViewBag.Smt) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        <td><input type="submit" value="Search" /></td>
+    </tr>
+</table>
+ 
+<div style="grid-row-align:center" id="content">
+@grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    grid.Column(columnName:"Department",header:"Dept"),
+    grid.Column(columnName:"Semester", header:"Sem"),
+    grid.Column(columnName:"Subject", header:"Subject"),
+    grid.Column("DOE", "DOE", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.DOE)), 
+    //grid.Column(columnName:"DOE", header:"DOE"),
+    grid.Column("Time_From","Time_From",format: (item) => string.Format("{0:hh:mm tt}", item.Time_From)),
+    grid.Column("Time_To","Time_To",format: (item) => string.Format("{0:hh:mm tt}", item.Time_To)),
+    grid.Column(columnName:"Duration", header:"Duration"),
+    grid.Column(columnName:"Practical",format:(item)=>@item.Practical==true ? "Practical" : "Theory"),
+    grid.Column(header:"", format:(item)=>Html.ActionLink("Details","Details",new{id=item.Subject}))
+    )
+    )
+</div>
+<table id="t02" style="margin: 0px auto;border:dashed;border-color:red; border-width:thin">
+    <tr>
+       <td>&nbsp;</td><td style="text-align:right">Total Records :  @ViewBag.Rcnt</td>
+    </tr>
+</table>
+}
+</nav>

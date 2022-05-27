@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MvcApplication1.Models.DeptCheckBoxListItem>
+
+@{
+    ViewBag.Title = "Dept Test";
+    }
+   
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Dept Test</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <label class="checkbox-inline"> 
+    @using (Html.BeginForm("ShowMe","Home", FormMethod.Post,new{@class="navbar-form navbar-left"})){
+                
+        foreach (var item in Model)
+                {
+                    
+                    @Html.HiddenFor(x=>item.ID)
+                       
+                    @Html.CheckBoxFor(x=>item.IsChecked)                      
+                        
+                    <span class="control-label col-md-6 myChklist">@Html.DisplayTextFor(x=>item.Display)&nbsp;</span>
+                        
+                }   
+                <br>
+      
+        foreach (var item2 in ViewBag.Sm)
+        {      
+            <span class="control-label col-md-6 myChklist">  
+           <input type="checkbox" name="Sem" value="@item2" id="chkD"/> @item2 &nbsp; &nbsp;&nbsp;
+                @*<label for ="ChkD">@item2</label>*@       
+           </span>
+        }
+      <br />
+            <input type="submit" value="Search" />
+        
+        
+    }</label>
+        <div>@ViewBag.SemSelected</div>
+        <div>Total Subject: @ViewBag.TC</div>
+   </div>
+</nav>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ExamModelStoreContainer" CdmEntityContainer="ExamEntities">
+    <EntitySetMapping Name="Counts">
+      <EntityTypeMapping TypeName="ExamModel.Count">
+        <MappingFragment StoreEntitySet="Count">
+          <ScalarProperty Name="Sub_PCode" ColumnName="Sub_PCode" />
+          <ScalarProperty Name="Reg" ColumnName="Reg" />
+          <ScalarProperty Name="Arr" ColumnName="Arr" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Campus_ID" ColumnName="Campus_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Script_Count">
+      <EntityTypeMapping TypeName="ExamModel.Script_Count">
+        <MappingFragment StoreEntitySet="Script_Count">
+          <ScalarProperty Name="Dept" ColumnName="Dept" />
+          <ScalarProperty Name="Subcode" ColumnName="Subcode" />
+          <ScalarProperty Name="PktNo" ColumnName="PktNo" />
+          <ScalarProperty Name="No_of_Scripts" ColumnName="No_of_Scripts" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Groups" ColumnName="Groups" />
+          <ScalarProperty Name="Entd" ColumnName="Entd" />
+          <ScalarProperty Name="Sessn" ColumnName="Sessn" />
+          <ScalarProperty Name="Paper_Type" ColumnName="Paper_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TIME_TABLE">
+      <EntityTypeMapping TypeName="ExamModel.TIME_TABLE">
+        <MappingFragment StoreEntitySet="TIME_TABLE">
+          <ScalarProperty Name="SESSN" ColumnName="SESSN" />
+          <ScalarProperty Name="Practical" ColumnName="Practical" />
+          <ScalarProperty Name="DURATION" ColumnName="DURATION" />
+          <ScalarProperty Name="TIME_TO" ColumnName="TIME_TO" />
+          <ScalarProperty Name="TIME_FROM" ColumnName="TIME_FROM" />
+          <ScalarProperty Name="DOE" ColumnName="DOE" />
+          <ScalarProperty Name="SUBTITLE" ColumnName="SUBTITLE" />
+          <ScalarProperty Name="SUBJECT" ColumnName="SUBJECT" />
+          <ScalarProperty Name="SEMESTER" ColumnName="SEMESTER" />
+          <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

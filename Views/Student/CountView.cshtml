@@ -1,0 +1,71 @@
+﻿<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+@*<meta name="viewport" content="width=device-width" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+
+<script type="text/javascript">
+    $(function () {
+        $("#searchText").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Student/AutocompleTeSgn/',
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                        alert(request.term);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#searchText").val(i.item.val);
+            },
+            minLength: 1
+        });
+    });
+</script>
+@{
+    ViewBag.Title = "CountView";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+         <hgroup class="title">
+                <h1  id="top">Subject-wise cout of students</h1>
+            </hgroup>
+        </div>
+    </section>
+} 
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+	                <div class="navbar-header">
+	                    <h2 style="text-align:left;text-decoration:underline;color:#f00">Search</h2>
+	                </div>
+	 </div>
+	<div class="collapse navbar-collapse">
+            @using (Html.BeginForm("CountView","Student", FormMethod.Get,new{@class="navbar-form navbar-left"})){
+               <div class="form-group">
+                    <input type="text" id="searchText" name="searchText" class="form-control" placeholder="Enter Subject"> 
+                    <input type="submit"  value="Show" class="btn btn-success" /><hr />
+                     <iframe id="reportFrame" src="..\Reports\myreport.aspx?searchText=@ViewBag.SbjC" style="width:90%; border:none;height:250px"></iframe>
+                   @*<iframe id="reportFrame" src="..\Reports\myreport.aspx" style="width:90%; border:none;height:250px"></iframe>*@
+                </div>
+            <hr />
+           
+            }
+                    
+    </div>
+ </nav>
+   

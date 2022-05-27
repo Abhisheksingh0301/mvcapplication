@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MvcApplication1.Models.j2t>
+
+@{
+    ViewBag.Title = "showMe";
+}
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+    <hgroup class="title">
+        <h1>Subjectwise count of student of @ViewBag.SSN  Examinations</h1>
+    </hgroup>
+   </div>
+ </section>
+   } 
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Dept)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sub_PCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Campus_ID)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dept)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sub_PCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Campus_ID)
+        </td>
+        <td>
+           @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+        </td>
+    </tr>
+}
+
+</table>

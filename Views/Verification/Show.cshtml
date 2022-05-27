@@ -1,0 +1,142 @@
+﻿<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#searchText").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '../Student/AutocompleteCertNo/',
+                    data: "{ 'prefix': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        //alert(response.responseText);
+                        alert(request.term);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hfCustomer").val(i.item.val);
+            },
+            minLength: 8
+        });
+    });
+    function popup(url) {
+        window.open(url, "#1", "dialogHeight:600px;dialogHeight:300px;dialogWidth:400px;dialogTop:300px;dialogLeft:400px;edge:Raised;center:Yes;help:No;Resiable:No;Status:No;");
+        
+    }
+</script>
+<style type="text/css">
+.divLeft {
+    width:400px;
+    display:block;
+    float: left;
+}
+.divRight {
+    width:400px;
+    display:block;
+    float: right;
+}
+</style>
+@model MvcApplication1.Models.PassedOutStudentsList
+
+@{
+    ViewBag.Title = "Certificate Verification";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+         <hgroup class="title">
+                <h1  id="top">Certificate Verification</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<div class="collapse navbar-collapse">
+            @using (Html.BeginForm("Show", "Verification", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+            {
+               <div class="form-group">
+                    <input type="text" id="searchText" name="searchText" class="form-control" placeholder="Enter Certificate number" value="@ViewBag.Ct"> 
+                    <input type="submit"  value="Show" class="btn btn-success" /><hr />
+                </div>
+            }
+</div>
+
+<fieldset>
+    <legend>PassedOutStudentsList</legend>
+    <div class="divLeft">
+    <table id="t01">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.CertificateNo)</th>
+            <td>@Html.DisplayFor(model => model.CertificateNo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IDNo)</th>
+            <td>@Html.DisplayFor(model => model.IDNo)</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>@Html.DisplayFor(model => model.PrintName)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Roll)</th>
+            <td>@Html.DisplayFor(model => model.Roll)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.RegNo)</th>
+            <td>@Html.DisplayFor(model => model.RegNo)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Sess)</th>
+            <td>@Html.DisplayFor(model => model.Sex)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Type)</th>
+            <td>@Html.DisplayFor(model => model.Type)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Specialisation)</th>
+            <td>@Html.DisplayFor(model => model.Specialisation)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Class)</th>
+            <td>@Html.DisplayFor(model => model.Class)&nbsp;@Html.DisplayFor(model => model.Class_Div)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Degree)</th>
+            <td>@Html.DisplayFor(model => model.Degree)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.YearOfPassing)</th>
+            <td>@Html.DisplayFor(model => model.YearOfPassing)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.IssueDate)</th>
+            <td>@Html.DisplayFor(model => model.IssueDate)</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Path)</th>
+            <td>@Html.DisplayFor(model => model.Path)</td>
+        </tr>                       
+    </table>
+       @*<a href="#" name="edit" id="edit" onclick="popup('http://localhost:51337/Home/PopupWindow');">click me</a> *@
+        <a href="#" name="edit" id="edit" onclick="popup('../Reports/R41.pdf');">click me</a> 
+
+    </div>
+<div class="divRight">
+    <div align="left"><iframe src="~/Reports/R41.pdf" width ="400px" height="600px" class="noprint"></iframe>     </div>
+    </div>
+    </fieldset>
+

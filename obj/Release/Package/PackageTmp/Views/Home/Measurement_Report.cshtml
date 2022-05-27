@@ -1,0 +1,42 @@
+﻿@model List<MvcApplication1.Models.Measurement_Evaluation>
+
+@{
+    ViewBag.Title = "Department wise Time Table";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 35, canPage: false, canSort: true);
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Evaluation Report</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+    <div style="grid-row-align:center" id="content">
+@grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    grid.Column(columnName:"Department",header:"Dept"),
+    grid.Column(columnName:"Semester", header:"Sem"),
+    grid.Column(columnName:"Total_Subjects", header:"Total Subjects"),
+    grid.Column(columnName:"Total_Scripts", header:"Total Scripts"),    
+    grid.Column("Last_Exam", "Last_Exam", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.Last_Exam))     
+    )
+    )
+</div>
+<table id="t02" style="margin: 0px auto;border:dashed;border-color:red; border-width:thin">
+    <tr>
+       <td>Session :  @ViewBag.Sessn</td><td style="text-align:right">Total answerscripts : @ViewBag.FTot</td>
+    </tr>
+</table>
+</nav>

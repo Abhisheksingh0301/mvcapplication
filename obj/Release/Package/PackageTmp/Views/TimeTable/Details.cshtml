@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MvcApplication1.Models.Subject_Master>
+
+@{
+    ViewBag.Title = "Subject Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Subject Details</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+
+<h2>Subject Details</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table id="t01" style="margin: 0px auto;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubTitle)    
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Semester)
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Semester)
+        </td>
+        
+    </tr>
+}
+
+</table>
+</nav>
+<style>
+table, th, td {
+    border: 1px solid blue;
+    border-collapse: collapse;
+    text-align:left;
+}
+</style>

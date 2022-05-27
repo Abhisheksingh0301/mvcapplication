@@ -1,0 +1,19 @@
+﻿@*@model MvcApplication1.Models.Count*@
+@model IEnumerable<MvcApplication1.Models.Count>  
+@{
+    ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
+}
+
+<h2>Index</h2>
+@grid.GetHtml(columns: new[]  
+  
+{  
+    grid.Column("Sub_PCode"),  
+    grid.Column("Reg"),  
+    grid.Column("Total")  
+      
+  
+}   
+)  
+

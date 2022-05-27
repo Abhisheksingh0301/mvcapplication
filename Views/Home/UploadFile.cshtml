@@ -1,0 +1,30 @@
+﻿<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+@{
+    ViewBag.Title = "File Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">File Upload<span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span></h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+    <div>
+        @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <span>Select File:</span>
+            <input type="file" name="postedFile"/>
+            <hr/>
+            <input type="submit" value="Upload"/>
+            <br/>
+            <span style="color:green">@ViewBag.Message</span>
+        }
+    </div>
+</nav>

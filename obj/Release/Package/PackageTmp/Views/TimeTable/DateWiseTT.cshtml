@@ -1,0 +1,86 @@
+﻿<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+
+  <script>
+      $(function () {
+          $('.datepicker').datepicker({
+              dateFormat: "dd-M-y",  
+              changeMonth: true,  
+              changeYear: true,
+              showOtherMonths: true,
+              selectOtherMonths: true,
+              yearRange: "-3:+1"
+              });     
+        });
+  </script>
+  
+@*@model List<MvcApplication1.Models.Time_Table>*@
+@model List<MvcApplication1.Models.Time_Table_Cnt>
+
+@{
+    ViewBag.Title = "Department wise Time Table";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 35, canPage: false, canSort: true);
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Date of exam wise Time Table</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<nav class="navbar navbar-default">
+      @using (Html.BeginForm("DateWiseTT","TimeTable", FormMethod.Get,new{@class="navbar-form navbar-left"})){
+    <table id="t01" style="margin: 0px auto;">
+        <tr>
+            <th>Start Date</th>
+            <td>
+                   @Html.TextBox("start",@DateTime.Now.Date.ToShortDateString(), new { @class = "form-control datepicker", @placeholder="dd-MMM-yy",@autocomplete="off", @style="width:120px;font-family:Cambria"})
+            </td>
+            <th>End Date</th>
+            <td>
+                    @Html.TextBox("end", @DateTime.Now.Date.ToShortDateString(), new {@class = "form-control datepicker", @placeholder="dd-MMM-yy", @autocomplete="off", @style="width:120px;font-family:Cambria" })
+            </td>
+            <td><input type="submit" value="Search" class="btn btn-default" /></td>
+        </tr>
+    </table>
+          
+          
+          
+<div style="grid-row-align:center" id="content">
+    @grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    grid.Column(columnName:"Department",header:"Dept"),
+    grid.Column(columnName:"Semester", header:"Sem"),
+    grid.Column(columnName:"Subject", header:"Subject"),
+    grid.Column("DOE", "DOE", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.DOE)), 
+    grid.Column("Time_From","Time_From",format: (item) => string.Format("{0:hh:mm tt}", item.Time_From)),
+    grid.Column("Time_To","Time_To",format: (item) => string.Format("{0:hh:mm tt}", item.Time_To)),
+    grid.Column(columnName:"Duration", header:"Duration"),
+    grid.Column(columnName:"Practical",format:(item)=>@item.Practical==true ? "Practical" : "Theory"),
+    grid.Column(columnName:"T_Count", header:"Count"),
+    grid.Column(header:"", format:(item)=>Html.ActionLink("Details","Details",new{id=item.Subject}))
+    )
+    )
+</div>
+    <table id="t02" style="margin: 0px auto;border:dashed;border-color:red; border-width:thin">
+        <tr>
+           <td>Count of Students : @ViewBag.AToT</td><td style="text-align:right">Total Records :  @ViewBag.Rcnt</td>
+        </tr>
+</table>
+   }
+</nav>
+
+  

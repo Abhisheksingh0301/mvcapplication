@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+       
+
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - COE Office</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="icon" type="image/gif" href="~/Images/sxclogo_jN2_icon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @*@Scripts.Render("~/bundles/bootstrap")*@
+    </head>
+    <body>
+        <div class="header-bar">
+            <div class="float-left">
+                <img src="~/Content/sxclogojpg.jpg" width="50" height="50" />
+            </div>
+            <div align="center" style="padding-top:6px">
+                <span style="font-size:xx-large; font-weight:bold; font-family:Cambria; color:blue">St. Xavier's College (Autonomous)<br /></span>
+            </div>
+            <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+        </div>
+        <div id="body">
+            @*@RenderSection("featured", required: false)*@
+            <div id="sidemenu" class="float-left clear-fix noprint" style="background-color:white; width:150px;float:left; padding-top:20px; height:800px">
+                <ul id="accordian">
+                    <li><a href="#"><img src="~/Images/home.png" width="20" height="20">&nbsp;Home</a>
+                        <ul>
+                            <li>@Html.ActionLink("Index", "Index", "home")</li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><img src="~/Images/Schedule.png" width="20" height="20">&nbsp;Time Table</a>
+                        <ul>
+                            <li>@Html.ActionLink("Subject wise", "SubjectWise", "TimeTable")</li>
+                            <li>@Html.ActionLink("Dept wise", "DepSm", "TimeTable")</li>
+                            <li>@Html.ActionLink("Date wise", "DatewiseTT", "TimeTable")</li>
+                        </ul>
+                   </li>
+                    <li><a href="#"><img src="~/Images/Student_info.jpg" width="20" height="20">&nbsp;Student</a>
+                        <ul>
+                            <li>@Html.ActionLink("Information", "Info", "home")</li>
+                            <li>@Html.ActionLink("Sem wise marks","SemWiseMarks","home")</li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><img src="~/Images/award.jpg" width="20" height="20">&nbsp;Verification</a>
+                        <ul>
+                            <li>@Html.ActionLink("Certificate", "Show", "Verification")</li>                            
+                        </ul>
+                    </li>
+                    <li><a href="#"><img src="~/Images/Schedule.png" width="20" height="20">&nbsp;Report</a>
+                        <ul>
+                            <li>@Html.ActionLink("Exam", "Measurement_Report", "Home")</li>                            
+                        </ul>
+                    </li>
+                </ul>
+                @*::after*@
+            </div>
+            <div>
+                <section id="mainsection" class="content-wrapper main-content clear-fix" style="padding-left:150px">
+                    <div align="center" class="rounded-div horizontal-center"  style="width:800px">
+                        @RenderSection("featured", required: false)
+                        @RenderBody()
+                    </div>
+                    @*::after*@
+                </section>
+            </div>
+        </div>
+
+
+
+
+
+        <footer>
+            @*<div class="content-wrapper">*@
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Date.ToShortDateString() - My ASP.NET MVC Application</p>
+                    @*@DateTime.Now.Date.ToShortDateString()*@
+                </div>
+                <div class="float-right">
+                    @*@ViewBag.SN*@AKS
+                </div>
+            @*</div>*@
+        </footer>
+
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
+<style>
+    *{margin:0;padding:0}
+body{ font-family:arial}
+
+#accordian {
+    float: left;
+    width: 145px;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    border-left: 1px solid #999;
+}
+#accordian li a {
+    display: block;
+    padding: 10px 5px;
+    background: #ccc;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #999;
+    text-decoration: none;
+    color: #000;
+}
+#accordian li a:hover, #nav li a.active {
+    background: #939;
+    color: #fff;
+}
+#accordian li ul {
+    display: none; /*// used to hide sub-menus*/
+}
+#accordian li ul li a {
+    padding: 10px 25px;
+    background: #feecec;
+    border-bottom: 1px dotted #ccc;
+}
+</style>
+
+ @* new link *@
+        <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+<script>
+    //$(function () {
+    //    $("#accordion").accordion({
+    //        collapsible: true
+    //    });
+    //});
+    $(document).ready(function () {
+        //$('#accordian li').first().addClass("active").find('ul').show();
+        //$('#accordian li').selected().addClass("active").find('ul').show();
+        $('#accordian > li > a').click(function () {
+            if ($(this).attr('class') != 'active') {
+                $('#accordian li ul').slideUp();
+                $(this).next().slideToggle();
+                $('#accordian li a').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>  

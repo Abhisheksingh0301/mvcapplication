@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ExamModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ExamEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Counts" EntityType="ExamModel.Count" />
+    <EntitySet Name="Script_Count" EntityType="ExamModel.Script_Count" />
+    <EntitySet Name="TIME_TABLE" EntityType="ExamModel.TIME_TABLE" />
+  </EntityContainer>
+  <EntityType Name="Count">
+    <Key>
+      <PropertyRef Name="Sub_PCode" />
+      <PropertyRef Name="Campus_ID" />
+    </Key>
+    <Property Name="Sub_PCode" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="Reg" Type="Int32" />
+    <Property Name="Arr" Type="Int32" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <Property Name="Campus_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Script_Count">
+    <Key>
+      <PropertyRef Name="Dept" />
+      <PropertyRef Name="Subcode" />
+      <PropertyRef Name="PktNo" />
+      <PropertyRef Name="No_of_Scripts" />
+      <PropertyRef Name="Groups" />
+      <PropertyRef Name="Sessn" />
+      <PropertyRef Name="Paper_Type" />
+    </Key>
+    <Property Name="Dept" Type="String" Nullable="false" MaxLength="9" Unicode="true" FixedLength="false" />
+    <Property Name="Subcode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PktNo" Type="Int32" Nullable="false" />
+    <Property Name="No_of_Scripts" Type="Int32" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Groups" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="false" />
+    <Property Name="Entd" Type="Boolean" Nullable="false" />
+    <Property Name="Sessn" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Paper_Type" Type="String" Nullable="false" MaxLength="25" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TIME_TABLE">
+    <Key>
+      <PropertyRef Name="DEPARTMENT" />
+      <PropertyRef Name="SEMESTER" />
+      <PropertyRef Name="SUBJECT" />
+      <PropertyRef Name="DOE" />
+      <PropertyRef Name="TIME_FROM" />
+      <PropertyRef Name="TIME_TO" />
+      <PropertyRef Name="SESSN" />
+    </Key>
+    <Property Type="String" Name="DEPARTMENT" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SEMESTER" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SUBJECT" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SUBTITLE" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="DOE" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="TIME_FROM" Nullable="false" Precision="3" />
+    <Property Type="DateTime" Name="TIME_TO" Nullable="false" Precision="3" />
+    <Property Type="String" Name="DURATION" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="Practical" Nullable="false" />
+    <Property Type="String" Name="SESSN" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

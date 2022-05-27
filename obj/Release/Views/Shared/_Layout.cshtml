@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - COE Office</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link rel="icon" type="image/gif" href="~/Images/sxclogo_jN2_icon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+    </head>
+    <body>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                   @* <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>*@
+                     <div><img src="~/Content/sxclogojpg.jpg" width="50" height="50"/>
+                        <div class="site-title"><span>St. Xavier's College (Autonomous), Kolkata </span></div>
+                    </div>
+                         @*<p class="site-title">@Html.ActionLink("~/Content/sxclogojpg.jpg", "Index", "Home")</p>*@
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            @*<li>@Html.ActionLink("About", "About", "Home")</li>*@
+                            <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropbtn">Time Table</a>
+                            <div class="dropdown-content">
+                                @Html.ActionLink("Dept wise","DepSm","TimeTable")
+                                @Html.ActionLink("Date wise","DatewiseTT","TimeTable")
+                            </div>
+                            </li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>                    
+                        </ul>
+                        
+                    </nav>
+                </div>
+                
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    @*<nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>                           
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>                        
+                    </nav>    *@                
+                </div>                  
+                </div>                                     
+        </header>         
+        <div id="body">             
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">                
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Date.ToShortDateString() - My ASP.NET MVC Application</p>
+                    @*@DateTime.Now.Date.ToShortDateString()*@
+                </div>
+                <div class="float-right">
+                    @*@ViewBag.SN*@AKS
+                </div>
+            </div>
+        </footer>
+
+        @*@Scripts.Render("~/bundles/jquery")*@
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
+@*<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #eeb667;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #d1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>*@

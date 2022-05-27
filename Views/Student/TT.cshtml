@@ -1,0 +1,54 @@
+﻿@model List<MvcApplication1.Models.Time_Table>
+
+@{
+    ViewBag.Title = "TT";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 30);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+<h2>Time Table of the Semesters.</h2>
+<a href="~/Reports/myreport.aspx">go to report</a>
+<div id="Grid">
+@grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    grid.Column("Department","Dept"),
+    grid.Column("Semester","Sem"),
+    grid.Column("Subject","Subject"),
+    grid.Column("DOE","DOE",format: (item) => string.Format("{0:dd-MMM-yyyy}", item.DOE)), 
+    grid.Column("Time_From","Time_From",format: (item) => string.Format("{0:hh:mm tt}", item.Time_From)),
+    grid.Column("Time_To","Time_To",format: (item) => string.Format("{0:hh:mm tt}", item.Time_To)),
+    grid.Column("Duration","Duration")
+    )
+    )
+</div>
+<br /><br />
+@using (Html.BeginForm("Export", "Student", FormMethod.Post))
+    {
+        <input type="hidden" name="GridHtml"/>
+        <input type="submit" id="btnSubmit" value="Export"/>
+    }
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //Add CSS to the Table for formatting.
+            $("#Grid table").attr("cellpadding", "5");
+            $("#Grid table").css({ "border-collapse": "collapse", "border": "1px solid #ccc" });
+            $("#Grid th").css({ "background-color": "#B8DBFD", "border": "1px solid #ccc" });
+            $("#Grid td").css({ "width": "150px", "border": "1px solid #ccc" });
+ 
+            //Assign Click event to Button.
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+    </script>

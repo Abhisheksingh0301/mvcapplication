@@ -1,0 +1,163 @@
+﻿<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+
+
+
+@model List<MvcApplication1.Models.Student_Info>
+@*@model IEnumerable<Student_Master>*@
+@{
+    ViewBag.Title = "Student Information";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 45, canPage: false, canSort: true);
+    //grid.Bind(rowCount: ViewBag.TotalRows, autoSortAndPage: true);
+  //  grid.Pager(WebGridPagerModes.All);
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper noprint">
+         <hgroup class="title">
+                <h1  id="top">Student Information</h1>
+            </hgroup>
+        </div>
+    </section>
+} <nav class="navbar navbar-default">
+  @using (Html.BeginForm("Info","Home", FormMethod.Get,new{@class="navbar-form navbar-left"})){
+<table id="t01" style="margin: 0px auto;">
+    <tr>
+        <th>Session</th>
+        <td>
+                @Html.DropDownList("Sessn", new SelectList(ViewBag.SSn) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        <th>Name</th>
+        <td>@ViewBag.Name</td>
+    </tr>
+    <tr>
+        <th>Department</th>
+        <td>
+                @Html.DropDownList("Dep", new SelectList(ViewBag.DpT) as SelectList, "-Select-", new{@class="myddList"})
+        </td>
+        <th>Regd. no.</th>
+        <td>@ViewBag.RegdNo</td>
+   </tr>
+    <tr>
+        <th>Roll</th>
+        <td><input type="text" name="roll" value="@ViewBag.roll" class="form-control" placeholder="Enter roll" required="required" style="width:100px" autocomplete="off"/></td>
+        <th>Current Year</th>
+        <td>@ViewBag.CurYr</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td><input type="submit" value="Search" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+ }
+</nav>
+
+<h2 id="hdng">Provisional Marksheet</h2>
+<div style="grid-row-align:center" id="content">
+    
+     @grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    //grid.Column("Department","Dept"),
+    grid.Column(columnName:"SemCode",header:"Sem"),
+    grid.Column(columnName:"Subject", header:"Subject"),
+    grid.Column(columnName:"CA", header:"CA"),
+    grid.Column(columnName:"WTG", header:"WTG"), 
+    grid.Column(columnName:"Plus", header:"Plus"),
+    grid.Column(columnName:"Total", header:"Total"),
+    grid.Column(columnName:"Pass", header:"Result"),
+    grid.Column(columnName:"Remarks", header:"Remarks")
+    )
+    )
+
+    @Html.Hidden("dir", grid.SortDirection)
+	        @Html.Hidden("col", grid.SortColumn)
+    <br /><br />
+<table id="t02" style="margin: 0px auto;border:dashed;border-color:red; border-width:thin">
+    <tr>
+        <td style="width:100px">Pass count : @ViewBag.Pass</td>
+        <td style="text-align:center">Arrear count : @ViewBag.Arrear</td>
+        <td style="text-align:right">Total Records :  @ViewBag.TRec</td>
+    </tr>
+    <tr>
+        <td style="text-align:left">Total marks: @ViewBag.FT/@ViewBag.FullMks</td>
+        <td>&nbsp;</td>
+        <td style="text-align:right">Percentage of marks : @ViewBag.Prc%</td>
+   </tr>
+   @*<tr>
+        <th>Papers appeared in current semester :</th>
+        <td colspan="2">
+             @ViewBag.SubjectList
+        </td>
+    </tr>*@
+    <tr>
+        <th colspan="2">There might be a few inadvertent error.</th>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+    <div id="accordion">
+        <h3>Papers appeared in current semester</h3>
+        <div>
+            <p>@ViewBag.SubjectList</p>
+        </div>
+    </div>
+	     <div class="navbar-header">
+	          <a href="#top" class="navbar-brand">Go Top</a>
+	      </div>
+  </div>
+
+   @*<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+	   <script>
+	        //$(function () {
+	        //    try {
+	        //        var dir = $('#dir').val();
+	        //        var col = $('#col').val();
+	        //        var header = $("th a[href*=" + col + "]");
+            //    if (dir == "Ascending") {
+	        //            header.text(header.text() + "  ▲")
+	        //        }
+            //    if (dir == "Descending") {
+            //        header.text(header.text() + "  ▼");
+	        //        }
+	 
+	        //    } catch (e) {
+	 
+	        //    }
+	        //})
+	        $(function(){
+	            $("#accordion" ).accordion({
+	                collapsible: true                    
+	            });
+	        } );
+            </script>        
+@*<style>
+    table#t01 th {
+    font-family: Cambria;
+    font-size: medium;
+    color: Green;
+    width:300px;
+}
+ table#t01 td {
+    font-family: Cambria;
+    font-size: medium;
+    color: Navy;
+    font-weight:normal;
+    width:900px; 
+}
+table#t01 td:hover
+{
+    font-weight: bold;
+}
+</style>*@

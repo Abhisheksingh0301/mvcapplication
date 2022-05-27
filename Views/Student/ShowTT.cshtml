@@ -1,0 +1,93 @@
+﻿@model List <MvcApplication1.Models.Time_Table>
+
+
+@{
+    ViewBag.Title = "ShowTT";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 20, canPage: true, canSort: true);
+    //grid.Bind(rowCount: ViewBag.TotalRows, autoSortAndPage: true);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+	<head>
+    <meta name="viewport" content="width=device-width" />
+	    <title>Index</title>
+	    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+	</head>
+
+<h2 id="top">Time Table of the Semesters.</h2><br /><a href="~/Reports/myreport.aspx">Show report</a>
+
+@*<h2>@Html.DisplayNameFor(model=>model.Department)</h2>*@
+<div>
+<nav class="navbar navbar-default">
+            <div class="container-fluid">
+	                <div class="navbar-header">
+	                    <a href="#" class="navbar-brand">Search</a>
+	                </div>
+	        </div>
+	                <div class="collapse navbar-collapse">
+	                    @using (Html.BeginForm("showTT","Student", FormMethod.Get,new{@class="navbar-form navbar-left"}))
+	                    {
+	                        <div class="form-group">
+	                            <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="search" />
+                                
+	                        </div>
+	                        <button type="submit" value="Search" class="btn btn-success">Search</button>
+                    }
+	                </div>
+    </nav>
+	           
+	        
+    @grid.GetHtml(tableStyle:"webgrid-table",
+    headerStyle:"webgrid-header",
+    footerStyle:"webgrid-footer",
+    alternatingRowStyle:"webgrid-alternating-row",
+    rowStyle:"webgrid-row-style", 
+    mode:WebGridPagerModes.All,
+    firstText:"<<First",
+    previousText:"<Prev",
+    nextText:"Next>",
+    lastText:"Last>>",
+    columns:grid.Columns(
+    //grid.Column("Department","Dept"),
+    grid.Column(columnName:"Department",header:"Dept"),
+    grid.Column("Semester","Sem"),
+    grid.Column("Subject","Subject"),
+    grid.Column("DOE", "DOE", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.DOE)), 
+    grid.Column("Time_From","Time_From",format: (item) => string.Format("{0:hh:mm tt}", item.Time_From)),
+    grid.Column("Time_To","Time_To",format: (item) => string.Format("{0:hh:mm tt}", item.Time_To)),
+    grid.Column("Duration","Duration"),
+    grid.Column(columnName:"Practical",format:(item)=>@item.Practical==true ? "Practical" : "Theory")
+    )
+    )
+    
+            @Html.Hidden("dir", grid.SortDirection)
+	        @Html.Hidden("col", grid.SortColumn)
+	 <h3>Total Records : @ViewBag.TotalRows</h3>
+	     <div class="navbar-header">
+	                    <a href="#top" class="navbar-brand">Go Top</a>
+              
+	      </div>   
+	    </div>
+@*<script src="~/Scripts/jquery-1.7.1.js"></script>*@
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+	    @*<script src="~/Scripts/jquery-3.1.1.js"></script>*@
+	   @* <script src="~/Scripts/bootstrap.min.js"></script>*@
+	    <script>
+	        $(function () {
+	            try {
+	                var dir = $('#dir').val();
+	                var col = $('#col').val();
+	                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+	                    header.text(header.text() + "  ▲")
+	                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+	                }
+	 
+	            } catch (e) {
+	 
+	            }
+	        })
+            </script>
